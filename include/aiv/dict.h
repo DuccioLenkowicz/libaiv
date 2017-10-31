@@ -17,6 +17,7 @@ typedef struct aiv_dict
 {
     struct aiv_dict_item **hash_map;
     unsigned int hash_map_size;
+    unsigned int current_cost;
 } aiv_dict_t;
 
 // create a new dictionary

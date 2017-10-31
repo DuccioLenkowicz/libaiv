@@ -88,6 +88,10 @@ int aiv_dict_add(aiv_dict_t *dict, void *key, unsigned int key_len, void *data)
     }
     else
     {
+        /*if (dict->current_cost > XXX)
+        {
+            // resize hashmap
+        }*/
         aiv_dict_item_t *item = dict->hash_map[hash];
         aiv_dict_item_t *old_item = NULL;
         while (item)
@@ -133,10 +137,15 @@ void *aiv_dict_get(aiv_dict_t *dict, void *key, unsigned int key_len)
     unsigned int hash = djb33x_hash(key, key_len) % (dict->hash_map_size - 1);
     aiv_dict_item_t *item = dict->hash_map[hash];
 
-    while(item)
+    unsigned int cost = 0;
+
+    while (item)
     {
+        cost++;
         if (key_len == item->key_len && !memcmp(item->key, key, key_len))
         {
+            if (cost > dict->current_cost)
+                dict->current_cost = cost;
             return item->data;
         }
         item = item->next;
