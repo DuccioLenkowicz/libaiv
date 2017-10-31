@@ -1,22 +1,5 @@
+#include "test.h"
 #include <aiv/list.h>
-#include <stdio.h>
-#include <aiv/error.h>
-
-#define test(x) if (x())                                                                                     \
-    {                                                                                                        \
-        fprintf(stderr, "test failed while running function " #x "() at address %p line %d\n", x, __LINE__); \
-        exit(1);                                                                                             \
-    \
-}\
-
-#define test_equal(x, y) {\
-        int ret = x();\
-        if (ret != y)\
-        {\
-            fprintf(stderr, "test failed while running function " #x "() at address %p line %d, expecting %d got %d\n", x, __LINE__, y, ret);\
-            exit(1);\
-        }\
-    }
 
 int test_aiv_list_new()
 {
@@ -252,7 +235,7 @@ int test_aiv_list_iter()
     return counter;
 }
 
-int main(int argc, char **argv)
+void test_list_run()
 {
     test(test_aiv_list_new);
     test(test_aiv_list_append);
@@ -265,7 +248,4 @@ int main(int argc, char **argv)
     test(test_aiv_list_remove_index);
     test(test_aiv_list_remove_index_two);
     test_equal(test_aiv_list_iter, 1);
-
-    fprintf(stdout, "all tests passed\n");
-    return 0;
 }
