@@ -26,6 +26,8 @@ aiv_dict_t *aiv_dict_new(unsigned int, int *);
 int aiv_dict_add(aiv_dict_t *, void *, unsigned int, void *);
 // retrieve a value given a key
 void *aiv_dict_get(aiv_dict_t *, void *, unsigned int);
+// remove item from the dict
+void *aiv_dict_remove(aiv_dict_t *, void *, unsigned int);
 
 
 
