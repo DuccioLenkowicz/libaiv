@@ -15,6 +15,14 @@ struct aiv_list *aiv_list_new(int *err_code)
     return list;
 }
 
+int aiv_list_init(struct aiv_list *list, int *err_code)
+{
+    if (err_code)
+        *err_code = AIV_OK;
+    memset(list, 0, sizeof(struct aiv_list));
+    return 0;
+}
+
 int aiv_list_append(struct aiv_list *list, void *element)
 {
     struct aiv_list_item *list_item = malloc(sizeof(struct aiv_list_item));

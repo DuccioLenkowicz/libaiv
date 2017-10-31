@@ -51,3 +51,5 @@ void aiv_list_reverse(struct aiv_list *);
 struct aiv_list *aiv_list_sublist(struct aiv_list *, unsigned int);
 // return the element of a list at an index
 void aiv_list_get(struct aiv_list *, void *);
+
+int aiv_list_init(struct aiv_list *list, int *);

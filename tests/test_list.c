@@ -11,6 +11,23 @@ int test_aiv_list_new()
     return 0;
 }
 
+/*
+int test_aiv_list_init()
+{
+    struct aiv_list list;
+
+    struct aiv_list_item items[100];
+
+    aiv_list_init(&list, items, NULL);
+
+    aiv_list_init(&list, NULL);
+
+    aiv_list_init(&list, NULL);
+
+    return 0;
+}*/
+
+
 int test_aiv_list_append()
 {
     struct aiv_list *list = aiv_list_new(NULL);
