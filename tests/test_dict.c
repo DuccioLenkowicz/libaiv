@@ -24,7 +24,7 @@ int test_dict_new_zero_hash_map_size()
 int test_dict_add()
 {
 
-    aiv_dict_t *dict = aiv_dict_new(17, NULL);
+    aiv_dict_t *dict = aiv_dict_new(10, NULL);
     if (!dict)
         return -1;
 
@@ -36,6 +36,21 @@ int test_dict_add()
 
     const char *foo3 = "hello_world";
     aiv_dict_add(dict, (void *)foo3, strlen(foo3), "bo");
+
+    return 0;
+}
+
+int test_dict_get()
+{
+
+    aiv_dict_t *dict = aiv_dict_new(10, NULL);
+    if (!dict)
+        return -1;
+
+    const char *foo = "hello";
+    aiv_dict_add(dict, (void *)foo, strlen(foo), "bo");
+
+    void *data = aiv_dict_get(dict, "hello", 5);
 
     return 0;
 }
