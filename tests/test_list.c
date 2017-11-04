@@ -328,7 +328,7 @@ int test_aiv_list_shuffle()
 
     aiv_list_shuffle(list);
 
-    print_list(list, int, d);
+    // print_list(list, int, d);
 
     aiv_list_destroy(list);
 
@@ -425,9 +425,35 @@ int test_aiv_list_sort()
     }
 
 
+    aiv_list_sort(list, NULL);
+
+    aiv_list_item_t *item = list->head;
+    while(item)
+    {
+        if(!item->next) break;
+        void *current = item->data;
+        void *next    = item->next->data;
+        if(current > next)
+        {
+            return -1;
+        }
+        item = item->next;
+    }
+
     aiv_list_sort(list, int_sort);
 
-    print_list(list, int, d);
+    item = list->head;
+    while(item)
+    {
+        if(!item->next) break;
+        int current = *((int *)item->data);
+        int next    = *((int *)item->next->data);
+        if(current > next)
+        {
+            return -1;
+        }
+        item = item->next;
+    }
 
     aiv_list_destroy(list);
 
