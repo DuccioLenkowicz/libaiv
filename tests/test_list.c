@@ -703,6 +703,45 @@ int test_list_contains_empty()
     return res;
 }
 
+int test_aiv_list_contains()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
+    
+    int res = 0;
+    const char *c = "Hello";
+
+    res = aiv_list_append(list, NULL);
+    if(res)
+    {
+        aiv_list_destroy(list);
+        return res;
+    }
+
+    res = aiv_list_append(list, &c);
+    if(res)
+    {
+        aiv_list_destroy(list);
+        return res;
+    }
+
+
+    res = aiv_list_contains(list, NULL);
+    if(res)
+    {
+        aiv_list_destroy(list);
+        return res;
+    }
+
+    res = aiv_list_contains(list, &c);
+    
+    aiv_list_destroy(list);
+
+    return res;
+
+}
+
 //TODO : contains, contains at, len, slow len, sublist
 void test_list_run()
 {
@@ -727,4 +766,6 @@ void test_list_run()
     test_equal(test_aiv_list_insert_uniq_empty_out_of_range, AIV_NOT_FOUND);
     test(test_aiv_list_insert_uniq);
     test_equal(test_aiv_list_insert_uniq_not_uniq, AIV_NOT_UNIQUE);
+    test_equal(test_list_contains_empty, AIV_NOT_FOUND);
+    test(test_aiv_list_contains);
 }
