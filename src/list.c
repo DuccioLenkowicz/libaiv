@@ -247,7 +247,7 @@ int aiv_list_insert_uniq(aiv_list_t *list, unsigned int index, void *element)
 {
     int len = aiv_list_len(list);
 
-    if(index > len - 1)
+    if(index > len)
         return AIV_NOT_FOUND;
     
     if(index == len)
