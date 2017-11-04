@@ -304,7 +304,6 @@ int aiv_list_contains(aiv_list_t *list, void *element)
     }
 
     return AIV_NOT_FOUND;
-
 }
 
 int aiv_list_contains_at(aiv_list_t *list, void *element, unsigned int index)

@@ -459,7 +459,7 @@ int test_aiv_list_sort()
 
     return ret;
 }
-//TODO : insert uniq, contains, contains at, len, slow len, sublist
+
 int test_aiv_list_insert_empty_at_head()
 {
     aiv_list_t *list = aiv_list_new(NULL);
@@ -684,14 +684,26 @@ int test_aiv_list_insert_uniq_not_uniq()
     }
 
     ret = aiv_list_insert_uniq(list, 3, &c);
-    fprintf(stdout, "%d\n", ret);
 
     aiv_list_destroy(list);
 
     return ret;
 }
 
+int test_list_contains_empty()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
 
+    int res = aiv_list_contains(list, NULL);
+
+    aiv_list_destroy(list);
+
+    return res;
+}
+
+//TODO : contains, contains at, len, slow len, sublist
 void test_list_run()
 {
     test(test_aiv_list_new);
