@@ -49,7 +49,7 @@ void aiv_list_sort(aiv_list_t *, int (*)(void *, void *));
 // reverse the list
 void aiv_list_reverse(aiv_list_t *);
 // return a new list (copy) with the item starting from the specified item
-aiv_list_t *aiv_list_sublist(aiv_list_t *, unsigned int);
+aiv_list_t *aiv_list_sublist(aiv_list_t *, unsigned int, int *);
 
 int aiv_list_init(aiv_list_t *, int *);
 
