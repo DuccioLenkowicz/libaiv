@@ -626,6 +626,29 @@ int test_aiv_list_insert_uniq_empty_out_of_range()
     return ret;
 }
 
+int test_aiv_list_insert_uniq()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
+    
+    int a = 3;
+    int b = 100;
+
+    int ret = 0;
+
+    ret = aiv_list_insert_uniq(list, 0, &a);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+    ret = aiv_list_insert_uniq(list, 1, &b);
+
+    aiv_list_destroy(list);
+    return ret;
+}
 
 void test_list_run()
 {
@@ -648,4 +671,5 @@ void test_list_run()
     test_equal(test_aiv_list_insert_out_of_range, AIV_NOT_FOUND);
     test(test_aiv_list_insert_uniq_empty_at_head);
     test_equal(test_aiv_list_insert_uniq_empty_out_of_range, AIV_NOT_FOUND);
+    test(test_aiv_list_insert_uniq);
 }
