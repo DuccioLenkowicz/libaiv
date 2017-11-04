@@ -12,7 +12,6 @@ struct aiv_dict_item
 
 typedef struct aiv_dict_item aiv_dict_item_t;
 
-// compact typedef
 typedef struct aiv_dict
 {
     struct aiv_dict_item **hash_map;
@@ -22,6 +21,8 @@ typedef struct aiv_dict
 
 // create a new dictionary
 aiv_dict_t *aiv_dict_new(unsigned int, int *);
+// destroy a dict instance
+void aiv_dict_destroy(aiv_dict_t  *);
 // add an item to a dictionary
 int aiv_dict_add(aiv_dict_t *, void *, unsigned int, void *);
 // retrieve a value given a key

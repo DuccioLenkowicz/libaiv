@@ -6,7 +6,6 @@
 // Bernstein classic hash
 static unsigned int djb33x_hash(void *key, unsigned int key_len)
 {
-
     unsigned int hash = 5381;
     unsigned int i;
 

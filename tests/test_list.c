@@ -3,7 +3,7 @@
 
 int test_aiv_list_new()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
     if (!list)
         return -1;
 
@@ -30,7 +30,7 @@ int test_aiv_list_init()
 
 int test_aiv_list_append()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
 
     if (!list)
         return -1;
@@ -44,7 +44,7 @@ int test_aiv_list_append()
 
 int test_aiv_list_append_null()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
 
     if (!list)
         return -1;
@@ -56,7 +56,7 @@ int test_aiv_list_append_null()
 
 int test_aiv_list_remove_empty()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
 
     if(!list)
         return -1;
@@ -66,10 +66,9 @@ int test_aiv_list_remove_empty()
     return ret;
 }
 
-
 int test_aiv_list_remove()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
 
     if(!list)
         return -1;
@@ -88,7 +87,7 @@ int test_aiv_list_remove()
 
 int test_aiv_list_remove_two()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
 
     if(!list)
         return -1;
@@ -125,7 +124,7 @@ int test_aiv_list_remove_two()
 
 int test_aiv_list_remove_non_exsistent()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
 
     if(!list)
         return -1;
@@ -155,7 +154,7 @@ int test_aiv_list_remove_non_exsistent()
 
 int test_aiv_list_remove_index_empty()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
     
         if(!list)
             return -1;
@@ -167,7 +166,7 @@ int test_aiv_list_remove_index_empty()
 
 int test_aiv_list_remove_index()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
     
         if(!list)
             return -1;
@@ -189,7 +188,7 @@ int test_aiv_list_remove_index()
 
 int test_aiv_list_remove_index_two()
 {
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
     if(!list)
         return -1;
 
@@ -226,12 +225,12 @@ int test_aiv_list_remove_index_two()
 int test_aiv_list_iter()
 {   
 
-    struct aiv_list *list = aiv_list_new(NULL);
+    aiv_list_t *list = aiv_list_new(NULL);
     if(!list)
         return -1;
 
-    struct aiv_list_item *context = NULL;
-    struct aiv_list_item *item = NULL;
+    aiv_list_item_t *context = NULL;
+    aiv_list_item_t *item = NULL;
     int counter = 0;
 
     int a = 345;
@@ -252,6 +251,190 @@ int test_aiv_list_iter()
     return counter;
 }
 
+int test_aiv_list_shuffle()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
+
+    int a = 0;
+    int b = 1;
+    int c = 2;
+    int d = 3;
+    int e = 4;
+    int f = 5;
+    int g = 6;
+    int h = 7;
+    int i = 8;
+
+    int ret = 0;
+
+    ret = aiv_list_insert(list, 0, &a);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &b);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &c);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &d);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &e);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+    ret = aiv_list_append(list, &f);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &g);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &h);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &i);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+
+    aiv_list_shuffle(list);
+
+    print_list(list, int, d);
+
+    aiv_list_destroy(list);
+
+    return ret;
+}
+
+static int int_sort(void *left, void *right)
+{
+    //equal
+    if(*(int*)left == *(int*)right)
+        return 0;
+    //left must come first
+    if(*(int*)left < *(int*)right)
+        return -1;
+    //right must come first
+    if(*(int*)left > *(int*)right)
+        return 1;
+
+    return 0;
+}
+
+int test_aiv_list_sort()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
+
+    int a = 3;
+    int b = 100;
+    int c = 6;
+    int d = -5;
+    int e = 4;
+    int f = 41;
+    int g = 7;
+    int h = 56;
+    int i = 0;
+
+    int ret = 0;
+
+    ret = aiv_list_append(list, &a);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &b);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &c);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &d);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &e);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+    ret = aiv_list_append(list, &f);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &g);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &h);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &i);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+
+    aiv_list_sort(list, int_sort);
+
+    print_list(list, int, d);
+
+    aiv_list_destroy(list);
+
+    return ret;
+}
+
+
 void test_list_run()
 {
     test(test_aiv_list_new);
@@ -265,4 +448,6 @@ void test_list_run()
     test(test_aiv_list_remove_index);
     test(test_aiv_list_remove_index_two);
     test_equal(test_aiv_list_iter, 1);
+    test(test_aiv_list_shuffle);
+    test(test_aiv_list_sort);
 }
