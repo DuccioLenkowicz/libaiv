@@ -459,6 +459,21 @@ int test_aiv_list_sort()
 
     return ret;
 }
+//TODO : test insert, insert uniq, contains, contains at, len, slow len, sublist
+int test_aiv_list_insert_empty_at_head()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
+    
+    const char *c = "a";
+
+    int ret = aiv_list_insert(list, 0, &c);
+
+    aiv_list_destroy(list);
+
+    return ret;
+}
 
 
 void test_list_run()
@@ -476,4 +491,5 @@ void test_list_run()
     test_equal(test_aiv_list_iter, 1);
     test(test_aiv_list_shuffle);
     test(test_aiv_list_sort);
+    test(test_aiv_list_insert_empty_at_head);
 }
