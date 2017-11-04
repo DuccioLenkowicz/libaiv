@@ -251,7 +251,7 @@ int aiv_list_insert_uniq(aiv_list_t *list, unsigned int index, void *element)
         return AIV_NOT_FOUND;
     
     if(index == len)
-        return aiv_list_append(list, element);
+        return aiv_list_append_uniq(list, element);
 
     aiv_list_item_t *new_item = malloc(sizeof(aiv_list_item_t));
     if(!new_item)
