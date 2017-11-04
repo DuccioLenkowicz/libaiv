@@ -475,6 +475,22 @@ int test_aiv_list_insert_empty_at_head()
     return ret;
 }
 
+int test_aiv_list_insert_empty_out_of_range()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
+    
+    const char *c = "a";
+
+    int ret = aiv_list_insert(list, 1, &c);
+
+    aiv_list_destroy(list);
+
+    return ret;
+}
+
+
 
 void test_list_run()
 {
@@ -492,4 +508,5 @@ void test_list_run()
     test(test_aiv_list_shuffle);
     test(test_aiv_list_sort);
     test(test_aiv_list_insert_empty_at_head);
+    test_equal(test_aiv_list_insert_empty_out_of_range, AIV_NOT_FOUND);
 }
