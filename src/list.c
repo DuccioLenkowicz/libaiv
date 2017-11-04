@@ -308,6 +308,9 @@ int aiv_list_contains(aiv_list_t *list, void *element)
 
 int aiv_list_contains_at(aiv_list_t *list, void *element, unsigned int index)
 {
+    if(index >= aiv_list_len(list))
+        return AIV_NOT_FOUND;
+
     aiv_list_item_t *item = list->head;
     unsigned int counter = 0;
 
@@ -320,7 +323,6 @@ int aiv_list_contains_at(aiv_list_t *list, void *element, unsigned int index)
     }
 
     return AIV_NOT_FOUND;
-
 }
 
 int aiv_list_len(aiv_list_t *list)

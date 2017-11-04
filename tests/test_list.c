@@ -780,8 +780,20 @@ int test_aiv_list_contains_not_contained()
     return res;
 }
 
+int test_aiv_list_contains_at_empty()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
 
-//TODO : contains, contains at, len, slow len, sublist
+    int res = aiv_list_contains_at(list, NULL, 0);
+
+    aiv_list_destroy(list);
+
+    return res;
+}
+
+//TODO : contains at, len, slow len, sublist
 void test_list_run()
 {
     test(test_aiv_list_new);
@@ -808,4 +820,5 @@ void test_list_run()
     test_equal(test_list_contains_empty, AIV_NOT_FOUND);
     test(test_aiv_list_contains);
     test_equal(test_aiv_list_contains_not_contained, AIV_NOT_FOUND);
+    test_equal(test_aiv_list_contains_at_empty, AIV_NOT_FOUND);
 }
