@@ -240,6 +240,32 @@ void *aiv_dict_iterator_get_current_key(aiv_dict_iterator_t *iterator)
     return iterator->current_key;
 }
 
+aiv_list_t *aiv_dict_keys_to_aiv_list(aiv_dict_t *dict)
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+
+    if(!list)
+        return NULL;
+
+    aiv_dict_iter_t iter;
+    aiv_dict_iterator_init(dict);
+
+    int ret = 0;
+
+    while(!aiv_dict_iterator_move_next(&iter))
+    {
+        ret = aiv_list_append(iter->current_key);
+        if(ret)
+        {
+            aiv_list_destroy(list);
+            return NULL;
+        }
+    }
+
+    return list;
+}
+
+
 
 
 
