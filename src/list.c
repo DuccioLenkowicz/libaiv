@@ -425,7 +425,7 @@ void aiv_list_reverse(aiv_list_t *list)
 
     if(len <= 1)
         return;
-        
+
     aiv_list_item_t *head = list->head;
     aiv_list_item_t *tail = list->tail;
     
@@ -448,7 +448,7 @@ aiv_list_t *aiv_list_sublist(aiv_list_t *list, unsigned int index, int *err_code
     if(index >= aiv_list_len(list))
     {
         if(err_code)
-            err_code = AIV_NOT_FOUND;
+            *err_code = AIV_NOT_FOUND;
 
         return NULL;
     }
@@ -458,13 +458,11 @@ aiv_list_t *aiv_list_sublist(aiv_list_t *list, unsigned int index, int *err_code
     if(!sub)
     {
         if(err_code)
-            err_code = AIV_NO_MEM;
+            *err_code = AIV_NO_MEM;
 
         return NULL;
     }
     
-    sub->tail = list->tail;
-
     unsigned int i = 0;
 
     for(aiv_list_item_t *item = list->head; item; item = item->next)
@@ -472,9 +470,6 @@ aiv_list_t *aiv_list_sublist(aiv_list_t *list, unsigned int index, int *err_code
         if(i++ >= index)
         {
             aiv_list_append(sub, item->data);
-
-            if(!sub->head)
-                sub->head = item;
         }
     }
 

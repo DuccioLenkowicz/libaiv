@@ -889,9 +889,113 @@ int test_aiv_list_contains_at_not_contained()
 }
 
 
+int test_aiv_list_sublist()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
 
+    int a = 3;
+    int b = 100;
+    int c = 6;
+    int d = -5;
+    int e = 4;
+    int f = 41;
+    int g = 7;
+    int h = 56;
+    int i = 0;
 
-//TODO : contains at, len, slow len, sublist
+    int ret = 0;
+
+    ret = aiv_list_append(list, &a);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &b);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &c);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &d);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &e);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+    ret = aiv_list_append(list, &f);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &g);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &h);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &i);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+    aiv_list_t *sub = aiv_list_sublist(list, 4, &ret);
+    if(!sub)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    
+    aiv_list_item_t *list_item  = list->head;
+    aiv_list_item_t *sub_item   = sub->head;
+    unsigned int counter = 0;
+    
+    while(list_item)
+    {
+        if(counter++ >= 4)
+        {
+            if(list_item->data != sub_item->data)
+            {
+                aiv_list_destroy(list);
+                aiv_list_destroy(sub);
+                return -1;
+            }
+            sub_item = sub_item->next;
+        }
+        list_item = list_item->next;
+    }
+
+    aiv_list_destroy(list);
+    aiv_list_destroy(sub);
+
+    return ret;
+}
+
+//TODO : len, slow len, sublist
 void test_list_run()
 {
     test(test_aiv_list_new);
@@ -922,4 +1026,5 @@ void test_list_run()
     test_equal(test_aiv_list_contains_at_out_of_range, AIV_NOT_FOUND);
     test(test_aiv_list_contains_at);
     test_equal(test_aiv_list_contains_at_not_contained, AIV_NOT_FOUND);
+    test(test_aiv_list_sublist);
 }
