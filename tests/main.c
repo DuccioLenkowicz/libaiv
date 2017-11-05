@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     srand((unsigned)time(NULL));
     rand();
     test_list_run();
-    // test_dict_run();
+    test_dict_run();
 
     fprintf(stdout, "all tests passed\n");
 }
