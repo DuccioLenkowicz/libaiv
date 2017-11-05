@@ -27,17 +27,28 @@ int test_dict_add()
     aiv_dict_t *dict = aiv_dict_new(10, NULL);
     if (!dict)
         return -1;
-
+    int ret = 0;
     const char *foo = "hello";
-    aiv_dict_add(dict, (void *)foo, strlen(foo), "bo");
+    ret = aiv_dict_add(dict, (void *)foo, strlen(foo), "bo");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
 
     const char *foo2 = "ciao";
-    aiv_dict_add(dict, (void *)foo2, strlen(foo2), "bo");
+    ret = aiv_dict_add(dict, (void *)foo2, strlen(foo2), "bo");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
 
     const char *foo3 = "hello_world";
-    aiv_dict_add(dict, (void *)foo3, strlen(foo3), "bo");
+    ret = aiv_dict_add(dict, (void *)foo3, strlen(foo3), "bo");
 
-    return 0;
+    aiv_dict_destroy(dict);
+    return ret;
 }
 
 int test_dict_get()
@@ -46,13 +57,29 @@ int test_dict_get()
     aiv_dict_t *dict = aiv_dict_new(10, NULL);
     if (!dict)
         return -1;
+    
+    int ret = 0;
 
     const char *foo = "hello";
-    aiv_dict_add(dict, (void *)foo, strlen(foo), "bo");
+    ret = aiv_dict_add(dict, (void *)foo, strlen(foo), "bo");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
+   
 
     void *data = aiv_dict_get(dict, "hello", 5);
 
-    return 0;
+    if(strcmp(data, "bo"))
+    {
+        aiv_dict_destroy(dict);
+        return -1;
+    }
+
+    aiv_dict_destroy(dict);
+    return ret;
+
 }
 
 void test_dict_run()
