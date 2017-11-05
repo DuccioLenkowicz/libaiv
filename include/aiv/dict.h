@@ -1,7 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Lunghezza di un dizionario
 // Iteratore sulle chiavi
 // Trasformazione delle chiavi in una aiv_list
 
@@ -19,6 +18,7 @@ typedef struct aiv_dict
     struct aiv_dict_item **hash_map;
     unsigned int hash_map_size;
     unsigned int current_cost;
+    unsigned int count;
 } aiv_dict_t;
 
 // create a new dictionary
