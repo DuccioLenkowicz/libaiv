@@ -1,6 +1,13 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Non ci sono funzioni di destroy
+// Liberare la memoria nei test
+// Cancellazione record in un dizionario
+// Lunghezza di un dizionario
+// Iteratore sulle chiavi
+// Trasformazione delle chiavi in una aiv_list
+
 typedef struct aiv_dict_item
 {
     struct aiv_dict_item *prev;
@@ -27,6 +34,11 @@ int aiv_dict_add(aiv_dict_t *, void *, unsigned int, void *);
 void *aiv_dict_get(aiv_dict_t *, void *, unsigned int);
 // remove item from the dict
 void *aiv_dict_remove(aiv_dict_t *, void *, unsigned int);
+
+void aiv_dict_destroy(aiv_dict_t *);
+
+int aiv_dict_len(aiv_dict_t *);
+
 
 
 
