@@ -995,6 +995,94 @@ int test_aiv_list_sublist()
     return ret;
 }
 
+int test_aiv_list_sublist_out_of_range()
+{
+    aiv_list_t *list = aiv_list_new(NULL);
+    if(!list)
+        return -1;
+
+    int a = 3;
+    int b = 100;
+    int c = 6;
+    int d = -5;
+    int e = 4;
+    int f = 41;
+    int g = 7;
+    int h = 56;
+    int i = 0;
+
+    int ret = 0;
+
+    ret = aiv_list_append(list, &a);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &b);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &c);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &d);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &e);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+    ret = aiv_list_append(list, &f);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &g);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &h);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    ret = aiv_list_append(list, &i);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+
+    aiv_list_t *sub = aiv_list_sublist(list, 100, &ret);
+    if(ret)
+    {
+        aiv_list_destroy(list);
+        return ret;
+    }
+    
+    aiv_list_destroy(list);
+    aiv_list_destroy(sub);
+
+    return ret;
+
+}
+
 //TODO : len, slow len, sublist
 void test_list_run()
 {
@@ -1027,4 +1115,5 @@ void test_list_run()
     test(test_aiv_list_contains_at);
     test_equal(test_aiv_list_contains_at_not_contained, AIV_NOT_FOUND);
     test(test_aiv_list_sublist);
+    test_equal(test_aiv_list_sublist_out_of_range, AIV_NOT_FOUND);
 }
