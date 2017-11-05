@@ -1,5 +1,4 @@
 #include "test.h"
-
 #include <aiv/dict.h>
 
 int test_dict_new()
@@ -124,6 +123,66 @@ int test_dict_remove()
     return ret;
 }
 
+int test_dict_len()
+{
+    aiv_dict_t *dict = aiv_dict_new(10, NULL);
+    if (!dict)
+        return -1;
+
+    int ret = 0;
+    int len = aiv_dict_len(dict);
+
+    if(len)
+    {
+        aiv_dict_destroy(dict);
+        return -1;
+    }
+
+    const char *foo = "hello";
+    ret = aiv_dict_add(dict, (void *)foo, strlen(foo), "bo");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
+
+    len = aiv_dict_len(dict);
+    if(len != 1)
+    {
+        aiv_dict_destroy(dict);
+        return -1;
+    }
+
+
+    const char *bar = "hello_1";
+    ret = aiv_dict_add(dict, (void *)bar, strlen(bar), "bo_1");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
+
+    len = aiv_dict_len(dict);
+    if(len != 2)
+    {
+        aiv_dict_destroy(dict);
+        return -1;
+    }
+
+    aiv_dict_remove(dict, "hello", 5);
+
+    len = aiv_dict_len(dict);
+    if(len != 1)
+    {
+        aiv_dict_destroy(dict);
+        return -1;
+    }
+
+    
+    aiv_dict_destroy(dict);
+    return ret;
+}
+
 void test_dict_run()
 {
     test(test_dict_new);
@@ -131,4 +190,5 @@ void test_dict_run()
     test(test_dict_add);
     test(test_dict_get);
     test(test_dict_remove);
+    test(test_dict_len);
 }
