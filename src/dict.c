@@ -83,6 +83,7 @@ int aiv_dict_add(aiv_dict_t *dict, void *key, unsigned int key_len, void *data)
         dict->hash_map[hash]->key = key_copy;
         dict->hash_map[hash]->key_len = key_len;
         dict->hash_map[hash]->data = data;
+        dict->count++;
         return 0;
     }
     else
@@ -124,6 +125,7 @@ int aiv_dict_add(aiv_dict_t *dict, void *key, unsigned int key_len, void *data)
 
         old_item->next = new_item;
         new_item->prev = old_item;
+        dict->count++;
 
         return AIV_OK;
     }
@@ -193,7 +195,7 @@ void *aiv_dict_remove(aiv_dict_t *dict, void *key, unsigned int key_len)
 
             free(item->key);
             free(item);
-
+            dict->count--;
             return result;
         }   
         item = item->next;
@@ -201,4 +203,10 @@ void *aiv_dict_remove(aiv_dict_t *dict, void *key, unsigned int key_len)
 
     return NULL;
 }
+
+int aiv_dict_len(aiv_dict_t *dict)
+{
+    return dict->count;
+}
+
 
