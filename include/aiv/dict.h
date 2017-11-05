@@ -36,7 +36,7 @@ void aiv_dict_destroy(aiv_dict_t *);
 // the length of the dictionary, that is the number of records
 int aiv_dict_len(aiv_dict_t *);
 // iterator on the key
-void *aiv_list_iter(aiv_dict_t *, void **);
+void *aiv_dict_iter(aiv_dict_t *, void **);
 
 
 
