@@ -158,9 +158,6 @@ void aiv_dict_destroy(aiv_dict_t *dict)
     for(int i = 0; i < dict->hash_map_size; i++)
     {
         aiv_dict_item_t *item = dict->hash_map[i];
-
-        if(!item) 
-            continue;
         
         while(item)
         {
@@ -173,3 +170,28 @@ void aiv_dict_destroy(aiv_dict_t *dict)
 
     free(dict);
 }
+
+void *aiv_dict_remove(aiv_dict_t *dict, void *key, unsigned int key_len)
+{
+    unsigned int hash = djb33x_hash(key, key_len) % (dict->hash_map_size - 1);
+    aiv_dict_item_t *item = dict->hash_map[hash];
+
+    while(item)
+    {
+        if(key_len == item->key_len && !memcmp(item->key, key, key_len))
+        {
+            if(item->prev)
+                item->prev->next = item->next;
+
+            if(item->next)
+                item->next->prev = item->prev;
+
+            free(item->key);
+            free(item);
+
+            return;
+        }   
+        item = item->next;
+    }
+}
+
