@@ -1,16 +1,14 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct aiv_dict_item
+typedef struct aiv_dict_item
 {
     struct aiv_dict_item *prev;
     struct aiv_dict_item *next;
     void *key;
     unsigned int key_len;
     void *data;
-};
-
-typedef struct aiv_dict_item aiv_dict_item_t;
+}aiv_dict_item_t;
 
 typedef struct aiv_dict
 {
