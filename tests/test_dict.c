@@ -223,12 +223,9 @@ int test_dict_iterator()
     while(!aiv_dict_iterator_move_next(&iterator))
     {
         counter++;
-        if(counter == 10)
-            break;
     }
 
     aiv_dict_destroy(dict);
-    fprintf(stdout, "%d\n", counter);
     if(counter != 3)
         ret = -1;
 
