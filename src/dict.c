@@ -61,7 +61,7 @@ int aiv_dict_add(aiv_dict_t *dict, void *key, unsigned int key_len, void *data)
 {
     unsigned int hash = djb33x_hash(key, key_len) % (dict->hash_map_size - 1);
 
-    fprintf(stdout, "hash of %.*s = %u\n", key_len, key, hash);
+    // fprintf(stdout, "hash of %.*s = %u\n", key_len, key, hash);
 
     if (!dict->hash_map[hash])
     {
@@ -71,7 +71,7 @@ int aiv_dict_add(aiv_dict_t *dict, void *key, unsigned int key_len, void *data)
             return AIV_NO_MEM;
         }
         memset(dict->hash_map[hash], 0, sizeof(aiv_dict_item_t));
-        fprintf(stdout, "created new hash record at %p\n", dict->hash_map[hash]);
+        // fprintf(stdout, "created new hash record at %p\n", dict->hash_map[hash]);
         void *key_copy = malloc(key_len);
         if (!key_copy)
         {
@@ -110,7 +110,7 @@ int aiv_dict_add(aiv_dict_t *dict, void *key, unsigned int key_len, void *data)
             return AIV_NO_MEM;
         }
         memset(new_item, 0, sizeof(aiv_dict_item_t));
-        fprintf(stdout, "created new hash record at %p after %p\n", new_item, old_item);
+        // fprintf(stdout, "created new hash record at %p after %p\n", new_item, old_item);
         void *key_copy = malloc(key_len);
         if (!key_copy)
         {
@@ -151,4 +151,25 @@ void *aiv_dict_get(aiv_dict_t *dict, void *key, unsigned int key_len)
     }
 
     return NULL;
+}
+
+void aiv_dict_destroy(aiv_dict_t *dict)
+{
+    for(int i = 0; i < dict->hash_map_size; i++)
+    {
+        aiv_dict_item_t *item = dict->hash_map[i];
+
+        if(!item) 
+            continue;
+        
+        while(item)
+        {
+            free(item->key);
+            aiv_dict_item_t *prev_item = item;
+            item = item->next;
+            free(prev_item);
+        }
+    }
+
+    free(dict);
 }
