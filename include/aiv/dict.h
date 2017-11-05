@@ -44,13 +44,13 @@ void *aiv_dict_remove(aiv_dict_t *, void *, unsigned int);
 void aiv_dict_destroy(aiv_dict_t *);
 // the length of the dictionary, that is the number of records
 int aiv_dict_len(aiv_dict_t *);
-
+// makes a list out of the key of the dict
 aiv_list_t *aiv_dict_keys_to_aiv_list(aiv_dict_t *);
 
 
 //initialize a preallocated iterator to an instance of aiv_dict
 void aiv_dict_iterator_init(aiv_dict_iterator_t *, aiv_dict_t *);
-//move the iterator to the first non NULL dict_item, returns -1 if the last dict_item has been reached
+//moves the iterator to the first non NULL dict_item, returns -1 if the last dict_item has been reached
 int aiv_dict_iterator_move_next(aiv_dict_iterator_t *);
 //returns the key at a given step of the iteration
 void *aiv_dict_iterator_get_current_key(aiv_dict_iterator_t *);

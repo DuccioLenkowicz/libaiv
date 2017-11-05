@@ -1,6 +1,5 @@
 #include <aiv/dict.h>
 #include <aiv/error.h>
-
 #include <stdio.h>
 
 // Bernstein classic hash
@@ -228,7 +227,6 @@ int aiv_dict_iterator_move_next(aiv_dict_iterator_t *iterator)
     }
     
     iterator->current_key = iterator->record_context->key;
-    // fprintf(stdout, "%s\n", (char *)iterator->current_key);
 
     iterator->record_context = iterator->record_context->next;
 
@@ -247,14 +245,14 @@ aiv_list_t *aiv_dict_keys_to_aiv_list(aiv_dict_t *dict)
     if(!list)
         return NULL;
 
-    aiv_dict_iter_t iter;
-    aiv_dict_iterator_init(dict);
+    aiv_dict_iterator_t iter;
+    aiv_dict_iterator_init(&iter, dict);
 
     int ret = 0;
 
     while(!aiv_dict_iterator_move_next(&iter))
     {
-        ret = aiv_list_append(iter->current_key);
+        ret = aiv_list_append(list, aiv_dict_iterator_get_current_key(&iter));
         if(ret)
         {
             aiv_list_destroy(list);

@@ -185,7 +185,7 @@ int test_dict_len()
 
 int test_dict_iterator()
 {
-    aiv_dict_t *dict = aiv_dict_new(4, NULL);
+    aiv_dict_t *dict = aiv_dict_new(10, NULL);
     if(!dict)
         return -1;
 
@@ -226,9 +226,68 @@ int test_dict_iterator()
     }
 
     aiv_dict_destroy(dict);
+
     if(counter != 3)
         ret = -1;
 
+    return ret;
+}
+
+int test_dict_keys_to_list()
+{
+    aiv_dict_t *dict = aiv_dict_new(10, NULL);
+    if(!dict)
+        return -1;
+
+    int ret = 0;
+
+    const char *foo = "hello";
+    ret = aiv_dict_add(dict, (void *)foo, strlen(foo), "bo");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
+    
+    const char *bar = "ciao";
+    ret = aiv_dict_add(dict, (void *)bar, strlen(bar), "bo");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
+    
+    const char *foobar = "hellociao";
+    ret = aiv_dict_add(dict, (void *)foobar, strlen(foobar), "bo");
+    if(ret)
+    {
+        aiv_dict_destroy(dict);
+        return ret;
+    }
+
+    aiv_list_t *list = aiv_dict_keys_to_aiv_list(dict);
+    if(!list)
+    {
+        aiv_dict_destroy(dict);
+        return -1;
+    }
+
+    aiv_dict_iterator_t iter;
+    aiv_dict_iterator_init(&iter, dict);
+
+    while(!aiv_dict_iterator_move_next(&iter))
+    {
+        ret = aiv_list_contains(list, aiv_dict_iterator_get_current_key(&iter));
+        if(ret)
+        {
+            aiv_list_destroy(list);
+            aiv_dict_destroy(dict);
+            return ret;
+        }
+    }
+
+    aiv_list_destroy(list);
+    aiv_dict_destroy(dict);
     return ret;
 }
 
@@ -241,4 +300,5 @@ void test_dict_run()
     test(test_dict_remove);
     test(test_dict_len);
     test(test_dict_iterator);
+    test(test_dict_keys_to_list);
 }
