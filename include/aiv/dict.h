@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
+#include <aiv/list.h>
 
-// Iteratore sulle chiavi
 // Trasformazione delle chiavi in una aiv_list
 
 typedef struct aiv_dict_item
@@ -44,6 +44,8 @@ void *aiv_dict_remove(aiv_dict_t *, void *, unsigned int);
 void aiv_dict_destroy(aiv_dict_t *);
 // the length of the dictionary, that is the number of records
 int aiv_dict_len(aiv_dict_t *);
+
+aiv_list_t *aiv_dict_keys_to_aiv_list(aiv_dict_t *);
 
 
 //initialize a preallocated iterator to an instance of aiv_dict
