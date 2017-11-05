@@ -27,7 +27,6 @@ int test_aiv_list_init()
     return 0;
 }*/
 
-
 int test_aiv_list_append()
 {
     aiv_list_t *list = aiv_list_new(NULL);
@@ -887,7 +886,6 @@ int test_aiv_list_contains_at_not_contained()
 
     return res;
 }
-
 
 int test_aiv_list_sublist()
 {
