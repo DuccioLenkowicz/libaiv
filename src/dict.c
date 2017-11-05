@@ -209,4 +209,38 @@ int aiv_dict_len(aiv_dict_t *dict)
     return dict->count;
 }
 
+void aiv_dict_iterator_init(aiv_dict_iterator_t *iterator, aiv_dict_t *dict)
+{
+    iterator->dict = dict;
+    iterator->record_context = dict->hash_map[0];
+    iterator->map_context = 0;
+    iterator->current_key = NULL;
+}
+
+int aiv_dict_iterator_move_next(aiv_dict_iterator_t *iterator)
+{
+    while(!iterator->record_context)
+    {
+        if(iterator->map_context < iterator->dict->hash_map_size - 1)
+            iterator->record_context = iterator->dict->hash_map[++iterator->map_context];
+        else
+            return -1;
+    }
+    
+    iterator->current_key = iterator->record_context->key;
+    // fprintf(stdout, "%s\n", (char *)iterator->current_key);
+
+    iterator->record_context = iterator->record_context->next;
+
+    return 0;
+}
+
+void *aiv_dict_iterator_get_current_key(aiv_dict_iterator_t *iterator)
+{
+    return iterator->current_key;
+}
+
+
+
+
 
